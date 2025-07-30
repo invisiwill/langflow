@@ -1,0 +1,40 @@
+{
+  "name": "Langflow Favrs",
+  "description": "Langflow with Postgres, API key security, and web UI basic auth.",
+  "repository": "https://github.com/invisiwill/langflow",
+  "env": {
+    "LANGFLOW_ENV": {
+      "value": "production"
+    },
+    "LANGFLOW_PORT": {
+      "value": "7860"
+    },
+    "LANGFLOW_API_KEY": {
+      "description": "API key for triggering flows externally",
+      "required": true
+    },
+    "BASIC_AUTH_USERNAME": {
+      "description": "Username for web access",
+      "required": true
+    },
+    "BASIC_AUTH_PASSWORD": {
+      "description": "Password for web access",
+      "required": true,
+    }
+  },
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "scripts": {
+    "postdeploy": "langflow db migrate"
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-basic-auth"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
+
